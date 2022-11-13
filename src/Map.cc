@@ -198,7 +198,9 @@ long unsigned int Map::GetMaxKFid()
 
 KeyFrame* Map::GetOriginKF()
 {
-    return mpKFinitial;
+  unique_lock<mutex> lock(mMutexMap);
+
+  return mpKFinitial;
 }
 
 void Map::SetCurrentMap()

@@ -1547,6 +1547,10 @@ string System::CalculateCheckSum(string filename, int type)
 
 
 Sophus::SE3f System::GetPoseOriginCurrentMap(bool &valid){
+  if(!mpAtlas){
+    valid = false;
+    return Sophus::SE3f();
+  }
   return mpAtlas->GetCurrentMap()->GetPoseOrigin(valid);
 }
 

@@ -1,3 +1,9 @@
+echo "Configuring and building Thirdparty/Pangolin..."
+cd Thirdparty/Pangolin
+cmake -B build
+cmake --build build
+
+cd ../..
 echo "Configuring and building Thirdparty/DBoW2 ..."
 
 cd Thirdparty/DBoW2
