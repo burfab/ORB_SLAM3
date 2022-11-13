@@ -186,6 +186,10 @@ public:
 
     float GetImageScale();
 
+    Sophus::SE3f GetPoseOriginCurrentMap(bool &valid);
+
+    Atlas* GetAtlas(){return mpAtlas;}
+
 #ifdef REGISTER_TIMES
     void InsertRectTime(double& time);
     void InsertResizeTime(double& time);

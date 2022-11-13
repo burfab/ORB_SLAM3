@@ -479,7 +479,11 @@ namespace ORB_SLAM3 {
     void Settings::readOtherParameters(cv::FileStorage& fSettings) {
         bool found;
 
-        thFarPoints_ = readParameter<float>(fSettings,"System.thFarPoints",found,false);
+      thFarPoints_ = readParameter<float>(fSettings,"System.thFarPoints",found,false);
+
+      searchWindowLarge_ = searchWindowSmall_ = 0;
+      searchWindowSmall_ = readParameter<int>(fSettings,"Tracking.searchWindowSmall",found,false);
+      searchWindowLarge_ = readParameter<int>(fSettings,"Tracking.searchWindowLarge",found,false);
     }
 
     void Settings::precomputeRectificationMaps() {

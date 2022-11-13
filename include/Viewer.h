@@ -82,8 +82,7 @@ private:
 
     float mViewpointX, mViewpointY, mViewpointZ, mViewpointF;
 
-    bool CheckFinish();
-    void SetFinish();
+    bool CheckFinish();void SetFinish();
     bool mbFinishRequested;
     bool mbFinished;
     std::mutex mMutexFinish;

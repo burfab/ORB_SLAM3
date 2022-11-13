@@ -489,6 +489,11 @@ void Map::PostLoad(KeyFrameDatabase* pKFDB, ORBVocabulary* pORBVoc/*, map<long u
 
     mvpBackupMapPoints.clear();
 }
-
+Sophus::SE3f Map::GetPoseOrigin(bool &valid) {
+  auto kf0 = GetOriginKF();
+  valid = kf0 != nullptr;
+  if(!valid) return {};
+  return kf0->GetPose();
+}
 
 } //namespace ORB_SLAM3

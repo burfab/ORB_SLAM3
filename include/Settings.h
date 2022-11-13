@@ -115,7 +115,9 @@ namespace ORB_SLAM3 {
         std::string atlasLoadFile() {return sLoadFrom_;}
         std::string atlasSaveFile() {return sSaveto_;}
 
-        float thFarPoints() {return thFarPoints_;}
+      float thFarPoints() {return thFarPoints_;}
+      int searchWindowLarge() {return searchWindowSmall_;}
+      int searchWindowSmall() {return searchWindowLarge_ ;}
 
         cv::Mat M1l() {return M1l_;}
         cv::Mat M2l() {return M2l_;}
@@ -227,6 +229,13 @@ namespace ORB_SLAM3 {
          * Other stuff
          */
         float thFarPoints_;
+
+
+      /*
+       * Custom stuff
+       */
+      int searchWindowLarge_;
+      int searchWindowSmall_;
 
     };
 };

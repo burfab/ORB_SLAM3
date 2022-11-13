@@ -51,6 +51,8 @@ Tracking::Tracking(System *pSys, ORBVocabulary* pVoc, FrameDrawer *pFrameDrawer,
     // Load camera parameters from settings file
     if(settings){
         newParameterLoader(settings);
+        searchWindowLarge_ = settings->searchWindowLarge();
+        searchWindowSmall_ = settings->searchWindowSmall();
     }
     else{
         cv::FileStorage fSettings(strSettingPath, cv::FileStorage::READ);
@@ -2878,7 +2880,8 @@ bool Tracking::TrackWithMotionModel()
     // Project points seen in previous frame
     int th;
 
-    if(mSensor==System::STEREO)
+    if(searchWindowSmall_ != 0) th = searchWindowSmall_;
+    else if(mSensor==System::STEREO)
         th=7;
     else
         th=15;
@@ -2891,7 +2894,7 @@ bool Tracking::TrackWithMotionModel()
         Verbose::PrintMess("Not enough matches, wider window search!!", Verbose::VERBOSITY_NORMAL);
         fill(mCurrentFrame.mvpMapPoints.begin(),mCurrentFrame.mvpMapPoints.end(),static_cast<MapPoint*>(NULL));
 
-        nmatches = matcher.SearchByProjection(mCurrentFrame,mLastFrame,2*th,mSensor==System::MONOCULAR || mSensor==System::IMU_MONOCULAR);
+        nmatches = matcher.SearchByProjection(mCurrentFrame,mLastFrame,searchWindowLarge_ == 0 ? th * 2 : searchWindowLarge_,mSensor==System::MONOCULAR || mSensor==System::IMU_MONOCULAR);
         Verbose::PrintMess("Matches with wider search: " + to_string(nmatches), Verbose::VERBOSITY_NORMAL);
 
     }
@@ -3408,7 +3411,7 @@ void Tracking::SearchLocalPoints()
             th=5;
 
         if(mState==LOST || mState==RECENTLY_LOST) // Lost for less than 1 second
-            th=15; // 15
+            th=searchWindowLarge_ == 0 ? 15 : searchWindowLarge_; // 15
 
         int matches = matcher.SearchByProjection(mCurrentFrame, mvpLocalMapPoints, th, mpLocalMapper->mbFarPoints, mpLocalMapper->mThFarPoints);
     }

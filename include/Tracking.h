@@ -349,6 +349,9 @@ protected:
     double mTime_LocalMapTrack;
     double mTime_NewKF_Dec;
 
+    int searchWindowLarge_ = 0;
+    int searchWindowSmall_ = 0;
+
     GeometricCamera* mpCamera, *mpCamera2;
 
     int initID, lastID;

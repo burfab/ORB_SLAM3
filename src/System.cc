@@ -1545,5 +1545,10 @@ string System::CalculateCheckSum(string filename, int type)
     return checksum;
 }
 
+
+Sophus::SE3f System::GetPoseOriginCurrentMap(bool &valid){
+  return mpAtlas->GetCurrentMap()->GetPoseOrigin(valid);
+}
+
 } //namespace ORB_SLAM
 

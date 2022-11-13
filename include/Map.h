@@ -73,6 +73,7 @@ public:
     Map(int initKFid);
     ~Map();
 
+    Sophus::SE3f GetPoseOrigin(bool &valid);
     void AddKeyFrame(KeyFrame* pKF);
     void AddMapPoint(MapPoint* pMP);
     void EraseMapPoint(MapPoint* pMP);
@@ -101,7 +102,6 @@ public:
 
     bool HasThumbnail();
     bool IsInUse();
-
     void SetBad();
     bool IsBad();
 
@@ -200,6 +200,8 @@ protected:
 
     // Mutex
     std::mutex mMutexMap;
+    std::mutex pose_mtx_;
+
 
 };
 
